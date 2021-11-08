@@ -18,7 +18,6 @@ export function Home() {
   const [roomCode, setRoomCode] = useState("");
 
   async function handleCreateRoom() {
-    console.log(process.env.REACT_APP_API_KEY);
     if (!user) {
       await signInWithGoogle();
     }
