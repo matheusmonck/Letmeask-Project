@@ -4,26 +4,15 @@ import { FormEvent, useState } from "react";
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
-import faceIconImg from "../assets/images/logo-face.png";
 
-import { database, firebase } from "../services/firebase";
+import { database } from "../services/firebase";
 
 import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 
 import "../styles/auth.scss";
-import { facebookProvider } from "../contexts/authFacebook";
-import socialMediaAuth from "../services/auth";
 
 export function Home() {
-  const handleClickFace = async (
-    provider?: firebase.auth.FacebookAuthProvider
-  ) => {
-    await socialMediaAuth(provider);
-
-    history.push("/rooms/new");
-  };
-
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState("");
@@ -74,18 +63,6 @@ export function Home() {
           <button onClick={handleCreateRoom} className="create-room">
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
-          </button>
-          <button
-            onClick={() => handleClickFace(facebookProvider)}
-            className="create-room2"
-          >
-            <img
-              src={faceIconImg}
-              alt="Logo do Google"
-              height="30px"
-              width="32px"
-            />
-            Crie sua sala com o Facebook
           </button>
           <div className="separator">ou entre em uma sala</div>
           <form onSubmit={handleJoinRoom}>
