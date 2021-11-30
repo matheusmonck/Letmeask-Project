@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
+import facebookLogoImg from "../assets/images/facebook-logo.png";
 
 import { database } from "../services/firebase";
 
@@ -11,6 +12,8 @@ import { Button } from "../components/Button";
 import { useAuth } from "../hooks/useAuth";
 
 import "../styles/auth.scss";
+import { facebookProvider } from "../services/authMethod";
+import socialMediaAuth from "../services/authfacebook";
 
 export function Home() {
   const history = useHistory();
@@ -47,6 +50,13 @@ export function Home() {
     history.push(`/rooms/${roomCode}`);
   }
 
+  const handleFacebook = async (provider: any) => {
+    const res = await socialMediaAuth(provider);
+    console.log(res);
+
+    history.push("/rooms/new");
+  };
+
   return (
     <div id="page-auth">
       <aside>
@@ -63,6 +73,17 @@ export function Home() {
           <button onClick={handleCreateRoom} className="create-room">
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
+          </button>
+          <button
+            onClick={() => handleFacebook(facebookProvider)}
+            className="create-room2"
+          >
+            <img
+              style={{ height: "32px", width: "32px" }}
+              src={facebookLogoImg}
+              alt="Logo do Facebook"
+            />
+            Crie sua sala com o Facebook
           </button>
           <div className="separator">ou entre em uma sala</div>
           <form onSubmit={handleJoinRoom}>
