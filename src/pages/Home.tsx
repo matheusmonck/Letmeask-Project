@@ -51,8 +51,7 @@ export function Home() {
   }
 
   const handleFacebook = async (provider: any) => {
-    const res = await socialMediaAuth(provider);
-    console.log(res);
+    await socialMediaAuth(provider);
 
     history.push("/rooms/new");
   };
